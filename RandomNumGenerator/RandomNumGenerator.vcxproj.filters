@@ -36,6 +36,9 @@
     <ClInclude Include="List.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DataInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RandomNumGenerator.cpp">
@@ -48,6 +51,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="List.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DataInterface.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

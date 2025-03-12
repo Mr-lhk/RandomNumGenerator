@@ -59,12 +59,14 @@ CRandomNumGeneratorDlg::CRandomNumGeneratorDlg(CWnd* pParent /*=nullptr*/)
 void CRandomNumGeneratorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_LIST1, M_list);
 }
 
 BEGIN_MESSAGE_MAP(CRandomNumGeneratorDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &CRandomNumGeneratorDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -100,6 +102,10 @@ BOOL CRandomNumGeneratorDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+
+	M_list.InsertColumn(0, TEXT("序号"), 0, 100);
+	M_list.InsertColumn(1, TEXT("学号"), 0, 100);
+	M_list.InsertColumn(2, TEXT("姓名"), 0, 200);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -153,3 +159,16 @@ HCURSOR CRandomNumGeneratorDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+void CRandomNumGeneratorDlg::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	TCHAR szFilter[] = _T("文本文件(*.txt)|*.txt|所有文件(*.*)|*.*||");
+	CFileDialog fileDlg(TRUE, _T("txt"), NULL, 0, szFilter, this);
+	CString strFilePath;
+	if (IDOK == fileDlg.DoModal())
+	{
+		strFilePath = fileDlg.GetPathName();
+		M_DataInterface.SetFilePath(strFilePath);
+	}
+}

@@ -13,4 +13,6 @@
 //newly added
 #include <string>
 
+using namespace std;
+
 #endif //PCH_H
