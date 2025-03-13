@@ -22,7 +22,7 @@ public:
 
 	void add_tail(int num, std::string name, int value);
 	void del(int num);
-	node* query(int num);
+	node* query(int num); // 读取链表第 num 项
 
 private:
 	int len; // 链表长度

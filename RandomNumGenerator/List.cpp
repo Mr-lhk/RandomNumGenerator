@@ -17,7 +17,7 @@ List::~List()
 
 	node* p = head;
 	node* q = nullptr;
-	while(p->isTail == false)
+	while (p->isTail == false)
 	{
 		q = p;
 		p = p->next;
@@ -109,15 +109,11 @@ void List::del(int num)
 	return;
 }
 
-List::node* List::query(int num)
+List::node* List::query(int num) // 读取链表第num项
 {
 	node* p = head;
-	while (p->num != num)
+	for (int i = 0;i < num && p->isTail == false;i++)
 	{
-		if (p->isTail == true)
-		{
-			return nullptr;
-		}
 		p = p->next;
 	}
 	return p;
