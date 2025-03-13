@@ -1,8 +1,15 @@
 #include "pch.h"
 #include "DataInterface.h"
 #include <fstream>
+#include <time.h>
+#include <cstdlib>
 
-DataInterface::DataInterface() {}
+DataInterface::DataInterface() 
+{
+	length = 0;
+	randSeed = (unsigned)time(NULL);
+	srand(randSeed);
+}
 
 DataInterface::~DataInterface() {}
 
@@ -41,3 +48,7 @@ void DataInterface::Open()
 	inputstream.close();
 }
 
+int DataInterface::getRandNum(int l, int r)
+{
+	return rand()%(r-l+1)+l;
+}
