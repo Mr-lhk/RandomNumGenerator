@@ -10,7 +10,7 @@ public:
 		int id; // 编号
 
 		int num; // 学号
-		std::string name; // 姓名
+		string name; // 姓名
 		int value; // 权值
 
 		bool isHead;

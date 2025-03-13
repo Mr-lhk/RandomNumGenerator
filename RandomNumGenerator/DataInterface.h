@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DataInterface.h"
+#include "List.h"
 #include <fstream>
 
 class DataInterface
@@ -10,9 +10,11 @@ public:
 	~DataInterface();
 	
 	void SetFilePath(CString FilePath);
-	void Open(string FilePath);
+	void Open();
 
 private:
 	CString FilePath;
+	List* p_list = nullptr;
+	int length;
 };
 
