@@ -5,6 +5,7 @@
 #pragma once
 
 #include "DataInterface.h"
+#include "List.h"
 
 // CRandomNumGeneratorDlg 对话框
 class CRandomNumGeneratorDlg : public CDialogEx
@@ -32,10 +33,18 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+
+	int lineCnt;
+
+	void eraseLine();
+	void insertLine(List::node* p_content);
+
 public:
 	CListCtrl M_list;
 
 	DataInterface M_DataInterface;
+
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton3();
+	afx_msg void OnBnClickedButton2();
 };

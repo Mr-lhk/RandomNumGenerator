@@ -112,7 +112,7 @@ void List::del(int num)
 List::node* List::query(int num) // 读取链表第num项
 {
 	node* p = head;
-	for (int i = 0;i < num && p->isTail == false;i++)
+	for (int i = 1;i < num && p->isTail == false;i++)
 	{
 		p = p->next;
 	}

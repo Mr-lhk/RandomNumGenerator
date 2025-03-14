@@ -11,7 +11,7 @@ public:
 	
 	void SetFilePath(CString FilePath);
 	void Open();
-	void Generate();
+	List::node* Generate();
 
 private:
 	CString FilePath;

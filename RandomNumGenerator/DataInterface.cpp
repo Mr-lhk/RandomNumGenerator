@@ -48,6 +48,7 @@ void DataInterface::Open()
 	inputstream.close();
 }
 
+
 int DataInterface::getRandNum(int l, int r)
 {
 	return rand()%(r-l+1)+l;

@@ -68,6 +68,7 @@ BEGIN_MESSAGE_MAP(CRandomNumGeneratorDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CRandomNumGeneratorDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON3, &CRandomNumGeneratorDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON2, &CRandomNumGeneratorDlg::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 
@@ -160,6 +161,26 @@ HCURSOR CRandomNumGeneratorDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+void CRandomNumGeneratorDlg::eraseLine()
+{
+	M_list.DeleteAllItems();
+}
+
+void CRandomNumGeneratorDlg::insertLine(List::node* p_content)
+{
+    CString str;
+    str.Format(TEXT("%d"), this->lineCnt);
+    M_list.InsertItem(this->lineCnt, str);
+
+    CString numStr;
+    numStr.Format(TEXT("%d"), p_content->num); // Convert int to CString
+    M_list.SetItemText(this->lineCnt, 1, numStr);
+
+	M_list.SetItemText(this->lineCnt, 2, p_content->name.c_str());
+
+    this->lineCnt++;
+}
+
 
 void CRandomNumGeneratorDlg::OnBnClickedButton1()
 {
@@ -178,5 +199,13 @@ void CRandomNumGeneratorDlg::OnBnClickedButton1()
 void CRandomNumGeneratorDlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	this->eraseLine();
+	this->lineCnt = 0;
 	M_DataInterface.Open();
+}
+
+void CRandomNumGeneratorDlg::OnBnClickedButton2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	this->insertLine(M_DataInterface.Generate());
 }
