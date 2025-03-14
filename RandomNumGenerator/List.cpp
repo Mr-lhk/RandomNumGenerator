@@ -10,7 +10,7 @@ List::List()
 
 List::~List()
 {
-	if (len == 0)
+	if (head == nullptr)
 	{
 		return;
 	}
@@ -73,6 +73,18 @@ void List::add_tail(int num, std::string name, int value)
 
 void List::del(int num)
 {
+	if (len == 0)
+	{
+		return;
+	}
+	if(len == 1)
+	{
+		delete head;
+		head = nullptr;
+		len = 0;
+		return;
+	}
+
 	if (num == this->head->num)
 	{
 		node* p = this->head;

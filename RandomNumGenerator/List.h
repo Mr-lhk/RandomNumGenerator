@@ -24,8 +24,9 @@ public:
 	void del(int num);
 	node* query(int num); // 读取链表第 num 项
 
-private:
 	int len; // 链表长度
+
+private:
 	int cnt; // 节点编号计数 下一个节点编号=cnt
 	node* head;
 };

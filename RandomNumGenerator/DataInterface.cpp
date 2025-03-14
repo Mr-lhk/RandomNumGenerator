@@ -48,6 +48,38 @@ void DataInterface::Open()
 	inputstream.close();
 }
 
+bool DataInterface::isOpen()
+{
+	return FilePath != "";
+}
+
+List::node* DataInterface::Generate() // 抽号/生成随机数 方法
+{
+	if (p_list->len == 0)
+	{
+		return nullptr;
+	}
+
+	int randNum;
+	List::node* p_present = nullptr;
+	while (true) // 为实现权值 每次抽中 id=i 时，若 randNum>value ，则再抽一次
+	{
+		randNum = getRandNum(1, p_list->len);
+		p_present = p_list->query(randNum);
+		if (getRandNum(1, 100) > p_present->value) // 权值判断
+		{
+			continue;
+		}
+		break;
+	}
+	return p_present;
+}
+
+void DataInterface::delItem(int num)
+{
+	p_list->del(num);
+}
+
 
 int DataInterface::getRandNum(int l, int r)
 {

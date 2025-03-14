@@ -7,6 +7,7 @@
 #include "RandomNumGenerator.h"
 #include "RandomNumGeneratorDlg.h"
 #include "afxdialogex.h"
+#include <Windows.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -109,6 +110,8 @@ BOOL CRandomNumGeneratorDlg::OnInitDialog()
 	M_list.InsertColumn(1, TEXT("学号"), 0, 100);
 	M_list.InsertColumn(2, TEXT("姓名"), 0, 200);
 
+	lineCnt = 0;
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -184,7 +187,7 @@ void CRandomNumGeneratorDlg::insertLine(List::node* p_content)
 
 void CRandomNumGeneratorDlg::OnBnClickedButton1()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	// 选择文件路径
 	TCHAR szFilter[] = _T("文本文件(*.txt)|*.txt|所有文件(*.*)|*.*||");
 	CFileDialog fileDlg(TRUE, _T("txt"), NULL, 0, szFilter, this);
 	CString strFilePath;
@@ -193,19 +196,41 @@ void CRandomNumGeneratorDlg::OnBnClickedButton1()
 		strFilePath = fileDlg.GetPathName();
 		M_DataInterface.SetFilePath(strFilePath);
 	}
+
+	// 刷新操作
+	this->eraseLine();
+	this->lineCnt = 0;
+	M_DataInterface.Open();
 	return;
 }
 
 void CRandomNumGeneratorDlg::OnBnClickedButton3()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	// 刷新操作
 	this->eraseLine();
 	this->lineCnt = 0;
 	M_DataInterface.Open();
+	return;
 }
 
 void CRandomNumGeneratorDlg::OnBnClickedButton2()
 {
-	// TODO: 在此添加控件通知处理程序代码
-	this->insertLine(M_DataInterface.Generate());
+	// 抽号/生成随机数 部分
+	if (!M_DataInterface.isOpen())
+	{
+		MessageBox(TEXT("未打开预设文件"));
+		return;
+	}
+
+	auto p = M_DataInterface.Generate();
+
+	if (p == nullptr)
+	{
+        MessageBox(TEXT("生成数量已达上限"));
+		return;
+	}
+
+	this->insertLine(p);
+	M_DataInterface.delItem(p->num);
+	return;
 }

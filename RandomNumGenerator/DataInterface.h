@@ -11,10 +11,12 @@ public:
 	
 	void SetFilePath(CString FilePath);
 	void Open();
+	bool isOpen();
 	List::node* Generate();
+	void delItem(int num);
 
 private:
-	CString FilePath;
+	CString FilePath = NULL;
 	List* p_list = nullptr;
 	int length;
 
