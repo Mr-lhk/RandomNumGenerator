@@ -111,6 +111,11 @@ BOOL CRandomNumGeneratorDlg::OnInitDialog()
 	M_list.InsertColumn(2, TEXT("姓名"), 0, 200);
 
 	lineCnt = 0;
+	M_DataInterface.SetFilePath("C:\\settingfile.txt");
+	if (M_DataInterface.isOpen())
+	{
+		M_DataInterface.Open();
+	}
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }

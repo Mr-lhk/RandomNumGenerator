@@ -30,8 +30,9 @@ List::~List()
 
 void List::add_tail(int num, std::string name, int value)
 {
-	if (this->len == 0)
+	if (this->len == 0 || this->head ==nullptr)
 	{
+		this->len = 0;
 		head = new node;
 		head->id = this->cnt;
 		this->cnt++;
