@@ -31,6 +31,11 @@ void DataInterface::Open()
 	ifstream inputstream;
 	inputstream.open(this->FilePath, ios::in);
 
+	if (!inputstream.is_open())
+	{
+		return;
+	}
+
 	// 读取长度
 	inputstream >> this->length;
 
@@ -50,7 +55,9 @@ void DataInterface::Open()
 
 bool DataInterface::isOpen()
 {
-	return FilePath != "";
+	ifstream inputstream;
+	inputstream.open(this->FilePath, ios::in);
+	return inputstream.is_open();
 }
 
 List::node* DataInterface::Generate() // 抽号/生成随机数 方法
