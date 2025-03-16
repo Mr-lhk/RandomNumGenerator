@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A simple MFC program which can choose one item from a list randomly
+A simple MFC program which can choose one item from a list randomly  
 Written for personal usage
 
 ## Features
