@@ -19,13 +19,13 @@ Written for personal usage
 
 To use this program, you **must** have a setting file according to the format described below
 
-When entering the program, it will automaticlly try to open `settingfile.txt` in the root directory of Drive C 
+When entering the program, it will automaticlly try to open `settingfile.txt` in the root directory of Drive C  
 You can also open a file manually by clicking the "Select File" button
 
-Such operation will automatically followed by a refresh operation, which will cause the reread of the setting file and the erase of the output table, make it possible to select a person again
+Such operation will automatically followed by a refresh operation, which will cause the reread of the setting file and the erase of the output table, make it possible to select a person again  
 The refresh can also be comleted by clicking the button
 
-The program provides two ways to generate new random nums, single-generation and multi-generation
+The program provides two ways to generate new random nums, single-generation and multi-generation  
 Click the button of single-generation, and a new num will be generated, if possible
 You can also click the arrows to change the frequency of the multi-generation function, which is shown in the text box beside. Then click the button of multi-generate to generate random nums according to the frequency
 
