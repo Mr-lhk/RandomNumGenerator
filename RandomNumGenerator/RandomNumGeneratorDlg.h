@@ -34,17 +34,23 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 
-	int lineCnt;
+	int lineCnt = 0;
+	int frequency = 0;
+	const int _MAX_FREQUENCY=50, _MIN_FREQUENCY=1;
 
 	void eraseLine();
 	void insertLine(List::node* p_content);
+	void textRewrite(int content);
 
 public:
 	CListCtrl M_list;
-
+	CEdit M_edit;
 	DataInterface M_DataInterface;
 
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton3();
 	afx_msg void OnBnClickedButton2();
+	
+	afx_msg void OnDeltaposSpin1(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnBnClickedButton4();
 };

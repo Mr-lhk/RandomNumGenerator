@@ -61,6 +61,7 @@ void CRandomNumGeneratorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, M_list);
+	DDX_Control(pDX, IDC_EDIT2, M_edit);
 }
 
 BEGIN_MESSAGE_MAP(CRandomNumGeneratorDlg, CDialogEx)
@@ -70,6 +71,8 @@ BEGIN_MESSAGE_MAP(CRandomNumGeneratorDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CRandomNumGeneratorDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON3, &CRandomNumGeneratorDlg::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON2, &CRandomNumGeneratorDlg::OnBnClickedButton2)
+	ON_NOTIFY(UDN_DELTAPOS, IDC_SPIN1, &CRandomNumGeneratorDlg::OnDeltaposSpin1)
+	ON_BN_CLICKED(IDC_BUTTON4, &CRandomNumGeneratorDlg::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -106,11 +109,13 @@ BOOL CRandomNumGeneratorDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 
-	M_list.InsertColumn(0, TEXT("序号"), 0, 100);
-	M_list.InsertColumn(1, TEXT("学号"), 0, 100);
-	M_list.InsertColumn(2, TEXT("姓名"), 0, 200);
+	M_list.InsertColumn(0, TEXT("序号"), 0, 80);
+	M_list.InsertColumn(1, TEXT("学号"), 0, 120);
+	M_list.InsertColumn(2, TEXT("姓名"), 0, 400);
 
 	lineCnt = 0;
+	frequency = 5;
+	textRewrite(frequency);
 	M_DataInterface.SetFilePath("C:\\settingfile.txt");
 	if (M_DataInterface.isOpen())
 	{
@@ -189,6 +194,13 @@ void CRandomNumGeneratorDlg::insertLine(List::node* p_content)
     this->lineCnt++;
 }
 
+void CRandomNumGeneratorDlg::textRewrite(int content)
+{
+	CString numStr;
+	numStr.Format(TEXT("%d"), content);
+	M_edit.SetWindowTextA(numStr);
+}
+
 
 void CRandomNumGeneratorDlg::OnBnClickedButton1()
 {
@@ -237,5 +249,54 @@ void CRandomNumGeneratorDlg::OnBnClickedButton2()
 
 	this->insertLine(p);
 	M_DataInterface.delItem(p->num);
+	return;
+}
+
+void CRandomNumGeneratorDlg::OnDeltaposSpin1(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	// SpinControl 部分
+	LPNMUPDOWN pNMUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
+
+	if (pNMUpDown->iDelta == -1)
+	{
+		if (this->frequency < _MAX_FREQUENCY)
+		{
+			this->frequency++;
+		}
+	}
+	else
+	{
+		if (this->frequency > _MIN_FREQUENCY)
+		{
+			this->frequency--;
+		}
+	}
+	textRewrite(this->frequency);
+
+	*pResult = 0;
+}
+
+void CRandomNumGeneratorDlg::OnBnClickedButton4()
+{
+	//实现多个生成
+	if (!M_DataInterface.isOpen())
+	{
+		MessageBox(TEXT("未打开预设文件"));
+		return;
+	}
+
+	for (int i = 0;i < this->frequency;i++)
+	{
+		auto p = M_DataInterface.Generate();
+
+		if (p == nullptr)
+		{
+			MessageBox(TEXT("生成数量已达上限"));
+			return;
+		}
+
+		this->insertLine(p);
+		M_DataInterface.delItem(p->num);
+	}
 	return;
 }

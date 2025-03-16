@@ -11,6 +11,7 @@ Written for personal usage
 - Changeable weights
 - Automaticlly remove the duplicates
 - Simple but beautiful GUI
+- Independent program, no need for the Internet
 
 ## Using Method
 
@@ -24,7 +25,13 @@ You can also open a file manually by clicking the "Select File" button
 Such operation will automatically followed by a refresh operation, which will cause the reread of the setting file and the erase of the output table, make it possible to select a person again
 The refresh can also be comleted by clicking the button
 
+The program provides two ways to generate new random nums, single-generation and multi-generation
+Click the button of single-generation, and a new num will be generated, if possible
+You can also click the arrows to change the frequency of the multi-generation function, which is shown in the text box beside. Then click the button of multi-generate to generate random nums according to the frequency
+
 ### Setting File Format
+
+ **Warning:** The file **must** be encoded in ANSI format!
 
 The first line contains an integer $length$ , the number of items
 
@@ -32,9 +39,19 @@ Each of the next $length$ lines contains three contents, $id$ , $name$ ,and $wei
 
 The $id$ should be unique
 
- **Warning:** The file **must** be encoded in ANSI format
+An example of the settingfile as below
+
+```testingfile.txt
+5
+1 name1 10
+2 name2 20
+3 name3 30
+4 name4 100
+5 name5 100
+```
 
 ## To Do List
 
-- [ ] Add the function of multy-generate 
+- [x] Add the function of multi-generate 
 - [ ] Fix the bugs
+- [ ] Optimize the weight function
