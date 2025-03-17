@@ -21,15 +21,15 @@ class CAboutDlg : public CDialogEx
 public:
 	CAboutDlg();
 
-// 对话框数据
+	// 对话框数据
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
-// 实现
+	// 实现
 protected:
 	DECLARE_MESSAGE_MAP()
 };
@@ -109,6 +109,16 @@ BOOL CRandomNumGeneratorDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 
+	LOGFONT M_logfont;
+	CFont* p_font = M_list.GetFont();
+	p_font->GetLogFont(&M_logfont);
+	M_logfont.lfWeight *= 1.6;
+	M_logfont.lfHeight *= 1.6;
+	static CFont S_font;
+	S_font.CreateFontIndirectA(&M_logfont);
+	M_list.SetFont(&S_font);
+	S_font.Detach();
+
 	M_list.InsertColumn(0, TEXT("序号"), 0, 80);
 	M_list.InsertColumn(1, TEXT("学号"), 0, 120);
 	M_list.InsertColumn(2, TEXT("姓名"), 0, 400);
@@ -181,17 +191,17 @@ void CRandomNumGeneratorDlg::eraseLine()
 
 void CRandomNumGeneratorDlg::insertLine(List::node* p_content)
 {
-    CString str;
-    str.Format(TEXT("%d"), this->lineCnt);
-    M_list.InsertItem(this->lineCnt, str);
+	CString str;
+	str.Format(TEXT("%d"), this->lineCnt);
+	M_list.InsertItem(this->lineCnt, str);
 
-    CString numStr;
-    numStr.Format(TEXT("%d"), p_content->num); // Convert int to CString
-    M_list.SetItemText(this->lineCnt, 1, numStr);
+	CString numStr;
+	numStr.Format(TEXT("%d"), p_content->num); // Convert int to CString
+	M_list.SetItemText(this->lineCnt, 1, numStr);
 
 	M_list.SetItemText(this->lineCnt, 2, p_content->name.c_str());
 
-    this->lineCnt++;
+	this->lineCnt++;
 }
 
 void CRandomNumGeneratorDlg::textRewrite(int content)
@@ -243,7 +253,7 @@ void CRandomNumGeneratorDlg::OnBnClickedButton2()
 
 	if (p == nullptr)
 	{
-        MessageBox(TEXT("生成数量已达上限"));
+		MessageBox(TEXT("生成数量已达上限"));
 		return;
 	}
 
