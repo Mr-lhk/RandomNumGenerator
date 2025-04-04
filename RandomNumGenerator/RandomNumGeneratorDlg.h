@@ -42,7 +42,7 @@ protected:
 	void insertLine(List::node* p_content);
 	void textRewrite(int content);
 	void refresh();
-	void F_generate();
+	bool F_generate();
 public:
 	CListCtrl M_list;
 	CEdit M_edit;
