@@ -306,7 +306,10 @@ void CRandomNumGeneratorDlg::OnBnClickedButton4()
 
 	for (int i = 0;i < this->frequency;i++)
 	{
-		F_generate();
+		if (F_generate() == false)
+		{
+			break;
+		}
 	}
 	return;
 }
