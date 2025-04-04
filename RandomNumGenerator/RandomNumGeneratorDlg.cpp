@@ -211,6 +211,13 @@ void CRandomNumGeneratorDlg::textRewrite(int content)
 	M_edit.SetWindowTextA(numStr);
 }
 
+void CRandomNumGeneratorDlg::refresh()
+{
+	this->eraseLine();
+	this->lineCnt = 0;
+	M_DataInterface.Open();
+	return;
+}
 
 void CRandomNumGeneratorDlg::OnBnClickedButton1()
 {
@@ -225,19 +232,30 @@ void CRandomNumGeneratorDlg::OnBnClickedButton1()
 	}
 
 	// 刷新操作
-	this->eraseLine();
-	this->lineCnt = 0;
-	M_DataInterface.Open();
+	refresh();
 	return;
 }
 
 void CRandomNumGeneratorDlg::OnBnClickedButton3()
 {
 	// 刷新操作
-	this->eraseLine();
-	this->lineCnt = 0;
-	M_DataInterface.Open();
+	refresh();
 	return;
+}
+
+bool CRandomNumGeneratorDlg::F_generate()
+{
+	auto p = M_DataInterface.Generate();
+
+	if (p == nullptr)
+	{
+		MessageBox(TEXT("生成数量已达上限"));
+		return false;
+	}
+
+	this->insertLine(p);
+	M_DataInterface.delItem(p->num);
+	return true;
 }
 
 void CRandomNumGeneratorDlg::OnBnClickedButton2()
@@ -249,16 +267,7 @@ void CRandomNumGeneratorDlg::OnBnClickedButton2()
 		return;
 	}
 
-	auto p = M_DataInterface.Generate();
-
-	if (p == nullptr)
-	{
-		MessageBox(TEXT("生成数量已达上限"));
-		return;
-	}
-
-	this->insertLine(p);
-	M_DataInterface.delItem(p->num);
+	F_generate();
 	return;
 }
 
@@ -297,16 +306,10 @@ void CRandomNumGeneratorDlg::OnBnClickedButton4()
 
 	for (int i = 0;i < this->frequency;i++)
 	{
-		auto p = M_DataInterface.Generate();
-
-		if (p == nullptr)
+		if (F_generate() == false)
 		{
-			MessageBox(TEXT("生成数量已达上限"));
-			return;
+			break;
 		}
-
-		this->insertLine(p);
-		M_DataInterface.delItem(p->num);
 	}
 	return;
 }

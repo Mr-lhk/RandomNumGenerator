@@ -41,7 +41,8 @@ protected:
 	void eraseLine();
 	void insertLine(List::node* p_content);
 	void textRewrite(int content);
-
+	void refresh();
+	bool F_generate();
 public:
 	CListCtrl M_list;
 	CEdit M_edit;
