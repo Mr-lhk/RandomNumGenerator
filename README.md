@@ -26,7 +26,7 @@ Such operation will automatically followed by a refresh operation, which will ca
 The refresh can also be comleted by clicking the button
 
 The program provides two ways to generate new random nums, single-generation and multi-generation  
-Click the button of single-generation, and a new num will be generated, if possible
+Click the button of single-generation, and a new num will be generated, if possible  
 You can also click the arrows to change the frequency of the multi-generation function, which is shown in the text box beside. Then click the button of multi-generate to generate random nums according to the frequency
 
 ### Setting File Format
